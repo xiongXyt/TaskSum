@@ -4,7 +4,7 @@
 * 判断顺序表已满
 */
 bool SList::IsFull() {
-	if (this->m_Array != nullptr) {
+	if (this->m_Array != nullptr) {  // 不为空的判断
 		return this->m_MaxSize == this->m_Usedsize;
 	}
 	else {
@@ -16,12 +16,15 @@ bool SList::IsFull() {
 * 增加顺序表的长度
 */
 void SList::AddLen() {
+	// 保存线性表的临时信息
 	SNUM tempLen = this->m_MaxSize;
 	SNUM* ptemp = this->m_Array;
 
+	// 开辟新的线性表的信息
 	this->m_MaxSize += ADDSIZE;
 	this->m_Array = new SNUM[m_MaxSize];
 
+	// 拷贝原来数据到新的内存
 	memcpy(this->m_Array, ptemp, sizeof(SNUM) * tempLen);
 }
 
@@ -128,8 +131,7 @@ void SList::Push_Back(SNUM num) {
 	if (this->IsFull()) {
 		this->AddLen();
 	}
-	this->m_Array[this->m_Usedsize] = num;
-	++this->m_Usedsize;
+	this->m_Array[this->m_Usedsize++] = num;
 }
 
 /*
@@ -137,11 +139,10 @@ void SList::Push_Back(SNUM num) {
 */
 void SList::Pop_Back() {
 	if (this->IsEmpty()) {
-		cout << "IsEmpty" << endl;
+		cout << "IsEmpty " << endl;
 	}
 	else {
-		this->m_Array[this->m_Usedsize - 1] = -1;
-		--this->m_Usedsize;
+		this->m_Array[this->m_Usedsize--] = -1;
 	}
 }
 
@@ -151,25 +152,26 @@ void SList::Pop_Back() {
 * num : 插入的元素
 */
 void SList::Insert(SNUM pos, SNUM num) {
-	if (pos <= 0 || pos > this->m_Usedsize) {
+	if (pos <= 0 || pos > this->m_Usedsize) {  // 位置有误 1  Usedsize
 		cout << "insert error" << endl;
 	}
 	else {
-		if (this->IsFull()) {
+		if (this->IsFull()) {  // 线性表为满，扩容
 			this->AddLen();
 		}
-		for (SNUM i = m_Usedsize; i >= pos; --i) {
+		for (SNUM i = m_Usedsize; i >= pos; --i) {  // 循环后移
 			int temp = 0;
 			temp = this->m_Array[i];
 			this->m_Array[i] = this->m_Array[i - 1];
 			this->m_Array[i - 1] = temp;
 		}
+		// 插入
 		this->m_Array[pos - 1] = num;
 		++this->m_Usedsize;
 	}
 }
 /*
-* 删除值为val的元素
+* 删除值为val的第一个元素
 * num ; 需要删除的元素
 */
 void SList::Remove(SNUM num) {
