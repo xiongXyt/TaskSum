@@ -26,7 +26,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyStack.h">
+    <ClInclude Include="MyStackV.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyStackL.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
